@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Product from './Product';
 
 function App() {
+
+  const [products, setProducts] = useState([
+    {
+      'name': 'Лангустины по-Кировски"',
+      'image': 'Langostinos.jpg',
+      'desc': 'Лангустины – крупные представители семейства ракообразных. В США их называют аргентинскими креветками, а в Европе – норвежскими омарами или лобстерами. Они крупнее обычных креветок, обладают сладковатым вкусом и очень полезны, потому что содержат много белка. Готовить их несложно, а важные дополнительные ингредиенты для них – лимон, соевый соус и чеснок. Приятного аппетита!',
+      'ingredients': 'лангустины, соль, лимон'
+    },
+    {
+      'name': '"Пельмени по-Мурмански"',
+      'image': 'pelmeni.webp',
+      'desc': 'Рыбные пельмени с треской - блюдо русской кухни, а точнее северных ее провинций, где эта рыба широко распространена. Пельмени с начинкой из трески получаются очень нежными, очень вкусными, сочными и намного менее калорийными, чем с мясом. Пельмени с треской хорошо подать к столу с соусом из сметаны или подсоленного сливочного масла. Приятного аппетита!',
+      'ingredients': 'пельмени из трески, соль, сметана'
+    },
+  ]);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+  
+    <h1>Меню для дорогого гостя:</h1>
+    {products.map((product, index) => {
+      return(
+        <>
+        <Product 
+          key={index} 
+          product={product} 
+          onchange = {(e, attrName) => {
+            let newProducts = [...products]
+            newProducts[index][attrName] = e.target.value
+            setProducts(newProducts)
+          }}/>
+        </>
+      )
+    })}
+    </>
   );
 }
 
